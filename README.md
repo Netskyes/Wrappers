@@ -14,7 +14,7 @@ $Tools->mailOpts([
 // Optional SMTP Settings
 ], ['SMTP' => 'YOUR SERVER', 
     'SMTP_PORT' => 'YOUR SERVERS PORT', 
-    'SEND_FROM' => "mydomain@mydomain.com"] 
+    'SEND_FROM' => 'mydomain@mydomain.com'] 
 
-)->mailTo("someone@domain.com"); // Recipient
+)->mailTo('someone@domain.com'); // Recipient
 ```
