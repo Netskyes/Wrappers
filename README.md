@@ -2,7 +2,7 @@ PHP wrappers
 ========
 
 #### Simple Mail
-Basic functionality, class is currently being under development.
+Basic functionality, class is currently being under development. `mail.class.php`
 
 ```php
 $Mail = new Mail;
