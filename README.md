@@ -1,7 +1,7 @@
 PHP wrappers
 ========
 
-Simple Mail Usage
+#### Basic Simple Mail Functionality
 
 ```php
 $Tools = new Tools;
