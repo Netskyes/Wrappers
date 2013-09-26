@@ -25,6 +25,12 @@ $Mail->info();
 ```
 `$Mail->info() returns object( SMTP, SMTP_PORT, SEND_FROM )`
 
-
-
-
+Archive
+========
+`archive.class.php` is a simple wrapper for handling zip archives.
+Example
+========
+```php
+Archive::unzip('filename', 'destination');
+```
+`returns boolean`
