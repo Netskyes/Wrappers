@@ -14,7 +14,7 @@ $Mail->prepare([
 )->send('name@domain.com'); // Recipient
 ```
 
-With Optional SMTP Settings
+With optional SMTP settings
 
 ```php
 $Mail = new Mail;
