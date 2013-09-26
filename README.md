@@ -7,7 +7,7 @@ Basic functionality, class is currently being under development.
 ```php
 $Tools = new Tools;
 
-Tools->mailOpts([
+$Tools->mailOpts([
   'subject' => 'Message from Simple Mail', 
   'message' => 'You gota get it!'
   
