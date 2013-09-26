@@ -1,7 +1,8 @@
 PHP wrappers
 ========
 
-#### Basic Simple Mail Functionality
+#### Simple Mail
+Basic functionality, class is currently being under development.
 
 ```php
 $Tools = new Tools;
