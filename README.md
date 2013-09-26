@@ -6,6 +6,7 @@ Mail
 `mail.class.php` is a wrapper for mail function with extended functionality and easier usage.
 Example
 ========
+Sending email with optional SMTP settings else used defaults. (localhost, 25, mail address)
 ```php
 $Mail = new Mail;
 
@@ -20,6 +21,13 @@ $Mail->prepare([
 
 )->send('name@domain.com'); // Recipient
 ```
-SMTP settings are optional else used defaults. (localhost, 25, mail address)
+Retrieving SMTP settings
+```php
+$Mail = new Mail;
+$Mail->info();
+```
+`$Mail->info()` returns object( SMTP, SMTP_PORT, SEND_FROM )
+
+
 
 
