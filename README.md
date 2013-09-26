@@ -16,7 +16,7 @@ $Mail = new Mailer([
 	'TYPE' => 'html' // Default plain
 ]);
 
-$Mail->send('Subject', 'Message', ['someone@example.com', 'other@example.com']);
+$Mail->send('Subject', 'Message', ['someone@example.com', 'other@example.com']); // String for one recipient else array
 ```
 Retrieving SMTP settings
 ```php
