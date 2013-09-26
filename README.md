@@ -26,7 +26,7 @@ Retrieving SMTP settings
 $Mail = new Mail;
 $Mail->info();
 ```
-`$Mail->info()` returns object( SMTP, SMTP_PORT, SEND_FROM )
+`$Mail->info() returns object( SMTP, SMTP_PORT, SEND_FROM )`
 
 
 
