@@ -88,17 +88,6 @@ class Mailer {
 }
 
 
-/*
-	$Mail = new Mailer([
-		'SMTP' => 'www.netskyes.com',
-		'SMTP_PORT' => '587',
-		'SEND_FROM' => 'alex@netskyes.com',
-		'TYPE' => 'html'
-	]);
-
-	$Mail->send('Subject', 'Message', ['info@netskyes.com', 'alex@netskyes.com']);
-*/
-
 
 ?>
 
