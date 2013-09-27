@@ -1,9 +1,81 @@
 <?php
 	
+define('ERROR', '<strong>Error:</strong>');
 
-class Mail {
+class Mailer {
 
-	private $mail = array();
+	private $settings = [];
+
+	public function __construct($array = NULL) {
+
+		$options = ['SMTP', 'SMTP_PORT', 'SEND_FROM', 'TYPE'];
+
+		if( is_array($array) ) {
+			
+			foreach( $array as $key => $value ) {
+				if( in_array($key, $options) && !is_numeric($key) ) {
+
+					$this->settings += [$key => $value];
+				}
+				else exit(ERROR." configuration variables are incorrect.");
+			}
+		}
+
+	}
+
+	public function send($subject = NULL, $message = NULL, $to = NULL) {
+	
+	(isset($this->settings['SMTP']) && !empty($this->settings['SMTP'])) ? ini_set("SMTP", $this->settings['SMTP']) : "";
+	(isset($this->settings['SMTP_PORT']) && !empty($this->settings['SMTP_PORT'])) ? ini_set("smtp_port", $this->settings['SMTP_PORT']) : "";
+	(isset($this->settings['SEND_FROM']) && !empty($this->settings['SEND_FROM'])) ? ini_set("sendmail_from", $this->settings['SEND_FROM']) : "";
+
+	$headers = array('MIME-Version: 1.0');
+
+		if( isset($this->settings['TYPE']) && !empty($this->settings['TYPE']) ) {
+			switch($this->settings['TYPE']) {
+				case 'html':
+					$headers[] = 'Content-type: text/html; charset=iso-8859-1';
+				break;
+
+				default:
+					$headers[] = 'Content-type: text/plain; charset=iso-8859-1';
+			}
+		}
+
+		if( !isset($subject) || !isset($subject) || !isset($to) ) {
+			exit(ERROR." missing arguments.");
+		}
+
+
+		if( empty($subject) || preg_match("/^[\s]+$/i", $subject) ) {
+			exit(ERROR." subject is not set.");
+
+		} elseif( empty($message) || preg_match("/^[\s]+$/i", $message) ) {
+			exit(ERROR." message is not set.");
+
+		} elseif( empty($to) ) {
+			exit(ERROR." recipient(s) is not set.");
+		}
+
+
+		if( !is_array($to) ) {
+			$recipients = $to;
+		
+		} else {
+
+			$recipientsNum = count($to) - 1;
+			$recipients = "";
+
+			foreach( $to as $num => $address ) {
+				$separator = ($num < $recipientsNum) ? "," : "";
+
+				$recipients .= $address.$separator." ";
+			}
+
+		}
+
+		return mail($recipients, $subject, $message, implode("\r\n", $headers));
+	}
 
 	public function info() {
 		return (object) array(
@@ -13,82 +85,20 @@ class Mail {
 		);
 	}
 
-	public function prepare($message = NULL, $options = NULL) {
-		$reqs = array('subject', 'message', 'type');
-		$reqsNum = 0;
-
-		if( $message ) {
-			if( is_array($message) ) {
-
-				foreach( $message as $key => $value ) {
-
-					if( in_array($key, $reqs) ) {
-						if( $key == "subject" || $key == "message" ) {
-							$reqsNum++;
-						}
-
-						$this->mail += [$key => $value];
-					}
-
-				}
-
-				if( $reqsNum != 2 ) {
-					exit("<strong>Error:</strong> sending options must include subject and message!");
-				}
-				
-				if( $options && is_array($options) ) {
-
-					ini_set("SMTP", (!empty($options['SMTP'])) ? $options['SMTP'] : ini_get("SMTP"));
-					ini_set("smtp_port", (!empty($options['SMTP_PORT'])) ? $options['SMTP_PORT'] : ini_get("smtp_port"));
-					ini_set("sendmail_from", (!empty($options['SEND_FROM'])) ? $options['SEND_FROM'] : ini_get("sendmail_from"));
-
-				}
-
-				return $this;
-			} 
-			else exit("<strong>Error:</strong> sending options must be in a form of array!");
-
-		} 
-		else exit("<strong>Missing argument 1:</strong> sending options must be specified!");
-
-	}
-
-	public function send($list = NULL) {
-		$subject = trim($this->mail['subject']);
-		$message = trim($this->mail['message']);
-
-		if( !isset($subject) || !isset($message) ) {
-			exit("<strong>Error:</strong> mailOpts() must be initialized before sending a mail!");
-
-		} elseif( empty($subject) || empty($message) ) {
-			exit("<strong>Missing argument 1:</strong> you cannot leave subject or message empty!");
-		}
-
-		if( !$list ) {
-			exit("<strong>Missing argument 1:</strong> recipient(s) must be specified!");
-		}
-
-		if( !is_array($list) ) {
-			$recipients = $list;
-
-		} else {
-
-			$recipientsNum = count($list) - 1;
-			$recipients = "";
-
-			foreach( $list as $num => $address ) {
-				$separator = ($num < $recipientsNum) ? "," : "";
-
-				$recipients .= $address.$separator." ";
-			}
-		}
-
-		// Recipients, Subject, Message, Headers
-		return mail($recipients, $this->mail['subject'], $this->mail['message']);
-		
-	}
-
 }
+
+
+/*
+	$Mail = new Mailer([
+		'SMTP' => 'www.netskyes.com',
+		'SMTP_PORT' => '587',
+		'SEND_FROM' => 'alex@netskyes.com',
+		'TYPE' => 'html'
+	]);
+
+	$Mail->send('Subject', 'Message', ['info@netskyes.com', 'alex@netskyes.com']);
+*/
+
 
 ?>
 
