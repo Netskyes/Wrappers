@@ -1,4 +1,4 @@
-PHP wrappers
+Wrappers
 ========
 
 Mailer
