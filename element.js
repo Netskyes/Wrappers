@@ -39,3 +39,14 @@ var Element = {
 	}
 
 };
+
+
+// Example
+
+Element.new("div", {
+	id : "main",
+	url : "www.sawtbeirut.com",
+	style : "width: 100px; height: 100px"
+	
+}).attach();
+
