@@ -34,3 +34,23 @@ Example
 Archive::unzip('filename', 'destination');
 ```
 `returns boolean`
+
+Element DOM
+========
+Example
+========
+Creates new element and adds attributes with values to it.
+```javascript
+Element.new("elname", {
+	id : "main",
+	url : "www.sawtbeirut.com",
+	style : "width: 100px; height: 100px",
+	onclick : "function()"
+
+}).attach();
+```
+Attach to default body, or specify element.
+
+```javascript
+Element.remove(['.div1', '#div1', '.div2', '.div3']);
+```
