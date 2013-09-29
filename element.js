@@ -24,6 +24,8 @@ var Element = {
 	},
 
 	attach : function( name ) {
+		if( !this.el ) return false;
+
 		if( name && typeof ( name ) === "string" ) {
 		
 		var handle = document.querySelector( name );
@@ -68,3 +70,13 @@ var Element = {
 	}
 
 };
+
+Element.new("div", {
+	id : "main",
+	url : "www.sawtbeirut.com",
+	style : "width: 100px; height: 100px",
+	onclick : "function()"
+
+}).attach();
+
+Element.remove(['.div1', '#div1', '.div2', '.div3']);
